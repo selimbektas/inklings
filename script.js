@@ -95,13 +95,18 @@ document.getElementById("submit").onclick = () => {
     shakeSelected();
   }
 
+  // ⬇️ ÖNCE çiz
+  renderGrid();
+
+  // ⬇️ SONRA seçimi temizle
   selected = [];
+
   mistakesDiv.textContent = `Mistakes: ${mistakes} / 4`;
 
   if (solvedGroups.length === 4) endGame(true);
   if (mistakes >= 4) endGame(false);
-
 };
+
 
 document.getElementById("reset").onclick = () => {
   selected = [];
