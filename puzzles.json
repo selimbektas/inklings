@@ -1,0 +1,36 @@
+{
+  "date": "2026-01-17",
+  "title": "Absence and Form",
+  "words": [
+    "Voice", "Memory", "Frame", "Time",
+    "Echo", "Witness", "Delay", "Mask",
+    "Archive", "Double", "Threshold", "Return",
+    "Silence", "Perspective", "Trace", "Absence"
+  ],
+  "groups": [
+    {
+      "name": "Narrative Perspective",
+      "difficulty": "yellow",
+      "words": ["Voice", "Perspective", "Witness", "Frame"],
+      "explanation": "These terms define how narrative consciousness is positioned, filtered, and framed."
+    },
+    {
+      "name": "Memory & Remembrance",
+      "difficulty": "green",
+      "words": ["Memory", "Archive", "Trace", "Return"],
+      "explanation": "Each reflects a mechanism through which the past is preserved or revisited."
+    },
+    {
+      "name": "Absence as Meaning",
+      "difficulty": "blue",
+      "words": ["Silence", "Absence", "Echo", "Delay"],
+      "explanation": "Meaning arises through withholding, resonance, and temporal deferral."
+    },
+    {
+      "name": "Liminality",
+      "difficulty": "purple",
+      "words": ["Threshold", "Mask", "Double", "Time"],
+      "explanation": "These operate in unstable or transitional states between identities or forms."
+    }
+  ]
+}
