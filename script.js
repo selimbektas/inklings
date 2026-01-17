@@ -15,28 +15,20 @@ const shareBtn = document.getElementById("share");
 
 const basePath = window.location.pathname.replace(/\/$/, "");
 
-fetch(`${basePath}/puzzles/current.json`)
+fetch("puzzles/current.json")
   .then(res => {
-    if (!res.ok) throw new Error("Fetch failed");
+    if (!res.ok) {
+      throw new Error("Puzzle not found");
+    }
     return res.json();
   })
-  .then(data => init(data))
-  .catch(() => {
+  .then(data => {
+    init(data);
+  })
+  .catch(err => {
+    console.error(err);
     document.getElementById("message").textContent = "Bulmaca yüklenemedi.";
   });
-  .then(res => {
-    if (!res.ok) throw new Error("Puzzle not found");
-    return res.json();
-  })
-  .then(data => init(data))
-  .catch(() => {
-    message.textContent = "Bulmaca yüklenemedi.";
-  });
-
-fetch(`puzzles/${today}.json`)
-  .then(res => res.json())
-  .then(data => init(data))
-  .catch(() => message.textContent = "Puzzle not found.");
 
 function init(data) {
   puzzle = data;
