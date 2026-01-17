@@ -1,3 +1,5 @@
+console.log("SCRIPT ÇALIŞTI");
+
 let puzzle;
 let selected = [];
 let lockedWords = {};
