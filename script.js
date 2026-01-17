@@ -133,6 +133,8 @@ function endGame(win) {
   showExplanations();
   shareBtn.style.display = "block";
 }
+document.getElementById("social-share").style.display = "block";
+
 
 function revealAll() {
   puzzle.groups.forEach(g =>
@@ -172,3 +174,24 @@ function colorSquare(d) {
     purple: "🟪"
   }[d];
 }
+const twitterBtn = document.getElementById("share-twitter");
+const instaBtn = document.getElementById("share-instagram");
+
+function getShareText() {
+  const squares = solvedGroups.map(g =>
+    g.words.map(() => colorSquare(g.difficulty)).join("")
+  ).join("\n");
+
+  return `Edebi Connections\n\n${squares}`;
+}
+
+twitterBtn.onclick = () => {
+  const text = encodeURIComponent(getShareText());
+  const url = `https://twitter.com/intent/tweet?text=${text}`;
+  window.open(url, "_blank");
+};
+
+instaBtn.onclick = () => {
+  navigator.clipboard.writeText(getShareText());
+  message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
+};
