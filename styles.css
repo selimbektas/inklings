@@ -16,21 +16,40 @@ body {
 }
 
 .word {
-  padding: 15px;
+  padding: 16px 14px;
+  border-radius: 14px; /* 👈 köşeler */
   border: 1px solid #333;
   background: white;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.15s ease, background 0.2s ease;
+
+  font-weight: 600;
+  letter-spacing: 0.02em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  transition:
+    transform 0.18s cubic-bezier(.2,.8,.2,1),
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
+
 
 .word:hover:not(.locked) {
+  background-color: #e6f2ff;
   transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
+
 .word.selected {
-  background: #ddd;
+  background-color: #d6e9ff;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
+
 
 .word.locked {
   cursor: default;
