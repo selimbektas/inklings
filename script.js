@@ -11,7 +11,15 @@ const mistakesDiv = document.getElementById("mistakes");
 const subtitle = document.getElementById("subtitle");
 const shareBtn = document.getElementById("share");
 
-const today = new Date().toISOString().slice(0, 10);
+fetch("puzzles/current.json")
+  .then(res => {
+    if (!res.ok) throw new Error("Puzzle not found");
+    return res.json();
+  })
+  .then(data => init(data))
+  .catch(() => {
+    message.textContent = "Bulmaca yüklenemedi.";
+  });
 
 fetch(`puzzles/${today}.json`)
   .then(res => res.json())
