@@ -143,3 +143,42 @@ textarea {
     opacity: 1;
   }
 }
+/* ============================= */
+/* BUTTON STYLES */
+/* ============================= */
+
+button {
+  padding: 12px 18px;
+  border-radius: 999px; /* tamamen yuvarlak */
+  border: 1px solid #333;
+  background: white;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* Hover */
+button:hover {
+  background-color: #e6f2ff; /* açık mavi */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* Disabled */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
