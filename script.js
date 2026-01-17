@@ -101,7 +101,6 @@ document.getElementById("submit").onclick = () => {
   if (solvedGroups.length === 4) endGame(true);
   if (mistakes >= 4) endGame(false);
 
-  renderGrid();
 };
 
 document.getElementById("reset").onclick = () => {
