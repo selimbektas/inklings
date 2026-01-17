@@ -1,0 +1,50 @@
+{
+  "title": "Romanlar, Yazarlar ve Temalar",
+  "words": [
+    "Tutunamayanlar",
+    "Oğuz Atay",
+    "Yabancılaşma",
+    "İroni",
+
+    "Saatleri Ayarlama Enstitüsü",
+    "Ahmet Hamdi Tanpınar",
+    "Zaman",
+    "Modernleşme",
+
+    "Kürk Mantolu Madonna",
+    "Sabahattin Ali",
+    "Yalnızlık",
+    "İç dünya",
+
+    "Masumiyet Müzesi",
+    "Orhan Pamuk",
+    "Bellek",
+    "Aşk"
+  ],
+  "groups": [
+    {
+      "name": "Tutunamayanlar",
+      "difficulty": "yellow",
+      "words": ["Tutunamayanlar", "Oğuz Atay", "Yabancılaşma", "İroni"],
+      "explanation": "Modern bireyin toplumla kurduğu sorunlu ilişkiyi ironik bir dille ele alan roman ve bağlam."
+    },
+    {
+      "name": "Zaman ve Modernleşme",
+      "difficulty": "green",
+      "words": ["Saatleri Ayarlama Enstitüsü", "Ahmet Hamdi Tanpınar", "Zaman", "Modernleşme"],
+      "explanation": "Toplumsal dönüşümün zaman algısı üzerinden ele alındığı anlatı."
+    },
+    {
+      "name": "İçsel Yalnızlık",
+      "difficulty": "blue",
+      "words": ["Kürk Mantolu Madonna", "Sabahattin Ali", "Yalnızlık", "İç dünya"],
+      "explanation": "Karakterlerin iç dünyasına odaklanan, duygusal yalnızlığı merkeze alan anlatılar."
+    },
+    {
+      "name": "Bellek ve Aşk",
+      "difficulty": "purple",
+      "words": ["Masumiyet Müzesi", "Orhan Pamuk", "Bellek", "Aşk"],
+      "explanation": "Hatırlama, nesneler ve aşk etrafında kurulan modern anlatı."
+    }
+  ]
+}
