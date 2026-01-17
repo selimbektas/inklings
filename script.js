@@ -32,7 +32,6 @@ fetch("puzzles/current.json")
 
 function init(data) {
   puzzle = data;
-  subtitle.textContent = puzzle.title;
   shuffle(puzzle.words);
   renderGrid();
 }
