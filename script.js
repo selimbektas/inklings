@@ -11,7 +11,17 @@ const mistakesDiv = document.getElementById("mistakes");
 const subtitle = document.getElementById("subtitle");
 const shareBtn = document.getElementById("share");
 
-fetch("puzzles/current.json")
+const basePath = window.location.pathname.replace(/\/$/, "");
+
+fetch(`${basePath}/puzzles/current.json`)
+  .then(res => {
+    if (!res.ok) throw new Error("Fetch failed");
+    return res.json();
+  })
+  .then(data => init(data))
+  .catch(() => {
+    document.getElementById("message").textContent = "Bulmaca yüklenemedi.";
+  });
   .then(res => {
     if (!res.ok) throw new Error("Puzzle not found");
     return res.json();
