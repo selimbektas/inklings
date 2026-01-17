@@ -1,6 +1,5 @@
 {
-  "date": "2026-01-18",
-  "title": "Roman, Yazar, Tema",
+  "title": "Romanlar, Yazarlar ve Temalar",
   "words": [
     "Tutunamayanlar",
     "Oğuz Atay",
@@ -24,48 +23,29 @@
   ],
   "groups": [
     {
-      "name": "Tutunamayanlar Çevresi",
+      "name": "Tutunamayanlar",
       "difficulty": "yellow",
-      "words": [
-        "Tutunamayanlar",
-        "Oğuz Atay",
-        "Yabancılaşma",
-        "İroni"
-      ],
-      "explanation": "Bireyin toplumla ve kendisiyle kurduğu sorunlu ilişkiyi ironik ve parçalı bir anlatımla ele alan roman ve kavramlar."
+      "words": ["Tutunamayanlar", "Oğuz Atay", "Yabancılaşma", "İroni"],
+      "explanation": "Modern bireyin toplumla kurduğu sorunlu ilişkiyi ironik bir dille ele alan roman ve bağlam."
     },
     {
       "name": "Zaman ve Modernleşme",
       "difficulty": "green",
-      "words": [
-        "Saatleri Ayarlama Enstitüsü",
-        "Ahmet Hamdi Tanpınar",
-        "Zaman",
-        "Modernleşme"
-      ],
-      "explanation": "Osmanlı’dan Cumhuriyet’e geçişte zaman algısı, kurumlar ve bireyin bu dönüşüm karşısındaki konumu."
+      "words": ["Saatleri Ayarlama Enstitüsü", "Ahmet Hamdi Tanpınar", "Zaman", "Modernleşme"],
+      "explanation": "Toplumsal dönüşümün zaman algısı üzerinden ele alındığı anlatı."
     },
     {
-      "name": "İçe Dönük Anlatılar",
+      "name": "İçsel Yalnızlık",
       "difficulty": "blue",
-      "words": [
-        "Kürk Mantolu Madonna",
-        "Sabahattin Ali",
-        "Yalnızlık",
-        "İç dünya"
-      ],
-      "explanation": "Toplumsal çevreden çok karakterlerin duygusal ve psikolojik iç evrenine odaklanan anlatılar."
+      "words": ["Kürk Mantolu Madonna", "Sabahattin Ali", "Yalnızlık", "İç dünya"],
+      "explanation": "Karakterlerin iç dünyasına ve duygusal yalnızlığına odaklanan anlatılar."
     },
     {
       "name": "Bellek ve Aşk",
       "difficulty": "purple",
-      "words": [
-        "Masumiyet Müzesi",
-        "Orhan Pamuk",
-        "Bellek",
-        "Aşk"
-      ],
-      "explanation": "Hatırlama, nesneler ve kişisel tarihin aşk anlatısı üzerinden kurulması."
+      "words": ["Masumiyet Müzesi", "Orhan Pamuk", "Bellek", "Aşk"],
+      "explanation": "Hatırlama ve aşkın iç içe geçtiği modern anlatı."
     }
   ]
 }
+
