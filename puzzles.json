@@ -1,36 +1,71 @@
 {
-  "date": "2026-01-17",
-  "title": "Absence and Form",
+  "date": "2026-01-18",
+  "title": "Roman, Yazar, Tema",
   "words": [
-    "Voice", "Memory", "Frame", "Time",
-    "Echo", "Witness", "Delay", "Mask",
-    "Archive", "Double", "Threshold", "Return",
-    "Silence", "Perspective", "Trace", "Absence"
+    "Tutunamayanlar",
+    "Oğuz Atay",
+    "Yabancılaşma",
+    "İroni",
+
+    "Saatleri Ayarlama Enstitüsü",
+    "Ahmet Hamdi Tanpınar",
+    "Zaman",
+    "Modernleşme",
+
+    "Kürk Mantolu Madonna",
+    "Sabahattin Ali",
+    "Yalnızlık",
+    "İç dünya",
+
+    "Masumiyet Müzesi",
+    "Orhan Pamuk",
+    "Bellek",
+    "Aşk"
   ],
   "groups": [
     {
-      "name": "Narrative Perspective",
+      "name": "Tutunamayanlar Çevresi",
       "difficulty": "yellow",
-      "words": ["Voice", "Perspective", "Witness", "Frame"],
-      "explanation": "These terms define how narrative consciousness is positioned, filtered, and framed."
+      "words": [
+        "Tutunamayanlar",
+        "Oğuz Atay",
+        "Yabancılaşma",
+        "İroni"
+      ],
+      "explanation": "Bireyin toplumla ve kendisiyle kurduğu sorunlu ilişkiyi ironik ve parçalı bir anlatımla ele alan roman ve kavramlar."
     },
     {
-      "name": "Memory & Remembrance",
+      "name": "Zaman ve Modernleşme",
       "difficulty": "green",
-      "words": ["Memory", "Archive", "Trace", "Return"],
-      "explanation": "Each reflects a mechanism through which the past is preserved or revisited."
+      "words": [
+        "Saatleri Ayarlama Enstitüsü",
+        "Ahmet Hamdi Tanpınar",
+        "Zaman",
+        "Modernleşme"
+      ],
+      "explanation": "Osmanlı’dan Cumhuriyet’e geçişte zaman algısı, kurumlar ve bireyin bu dönüşüm karşısındaki konumu."
     },
     {
-      "name": "Absence as Meaning",
+      "name": "İçe Dönük Anlatılar",
       "difficulty": "blue",
-      "words": ["Silence", "Absence", "Echo", "Delay"],
-      "explanation": "Meaning arises through withholding, resonance, and temporal deferral."
+      "words": [
+        "Kürk Mantolu Madonna",
+        "Sabahattin Ali",
+        "Yalnızlık",
+        "İç dünya"
+      ],
+      "explanation": "Toplumsal çevreden çok karakterlerin duygusal ve psikolojik iç evrenine odaklanan anlatılar."
     },
     {
-      "name": "Liminality",
+      "name": "Bellek ve Aşk",
       "difficulty": "purple",
-      "words": ["Threshold", "Mask", "Double", "Time"],
-      "explanation": "These operate in unstable or transitional states between identities or forms."
+      "words": [
+        "Masumiyet Müzesi",
+        "Orhan Pamuk",
+        "Bellek",
+        "Aşk"
+      ],
+      "explanation": "Hatırlama, nesneler ve kişisel tarihin aşk anlatısı üzerinden kurulması."
     }
   ]
 }
