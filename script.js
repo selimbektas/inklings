@@ -124,7 +124,6 @@ document.getElementById("submit").onclick = () => {
       });
     }, 250);
 
-    if (solvedGroups.length === 4) endGame(true);
     return;
   }
 
@@ -150,13 +149,23 @@ document.getElementById("shuffle").onclick = () => {
   grid.classList.add("shuffling");
 
   setTimeout(() => {
-    const unlockedWords = puzzle.words.filter(w => !lockedWords[w]);
-    shuffle(unlockedWords);
-    puzzle.words = [...solvedGroups.flatMap(g => g.words), ...unlockedWords];
-    selected = [];
-    renderGrid();
-    grid.classList.remove("shuffling");
-  }, 50);
+    match.words.forEach(w => lockedWords[w] = match.difficulty);
+  solvedGroups.push(match);
+  reorderGrid();
+  renderGrid();
+
+  // Yeni kilitlenenlere animasyon
+  justLocked.forEach(word => {
+    const el = Array.from(grid.children).find(d => d.textContent === word);
+    if (el) el.classList.add("locked-new");
+  });
+
+  // ✅ BURAYA
+  if (solvedGroups.length === 4) {
+    endGame(true);
+  }
+
+}, 250);
 };
 
 // Reset
