@@ -7,8 +7,8 @@ let solvedGroups = [];
 let mistakes = 0;
 let gameOver = false;
 let gameWon = false;
-let shareResultsBtn = document.getElementById("share-results");
 
+let shareResultsBtn;
 
 const grid = document.getElementById("grid");
 const message = document.getElementById("message");
@@ -17,7 +17,7 @@ const mistakesDiv = document.getElementById("mistakes");
 // Pastel renk paleti
 const pastelColors = ["#f9df6d", "#a0c35a", "#8bbcd9", "#b497d6", "#ffb3ba", "#ffdfba", "#bae1ff", "#c3f7d9"];
 
-// Bulmacayı yükle
+// Puzzle yükle
 fetch("puzzles/current.json")
   .then(res => {
     if (!res.ok) throw new Error("Puzzle not found");
@@ -33,7 +33,6 @@ fetch("puzzles/current.json")
 function init(data) {
   puzzle = data;
 
-  // Her gruba pastel renk ata
   puzzle.groups.forEach((g, idx) => {
     g.color = pastelColors[idx % pastelColors.length];
   });
@@ -42,7 +41,7 @@ function init(data) {
   renderGrid();
 }
 
-// Diziyi karıştır
+// Shuffle fonksiyonu
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -60,19 +59,16 @@ function colorSquare(difficulty) {
   }
 }
 
-
 // Grid render
 function renderGrid() {
   grid.innerHTML = "";
   puzzle.words.forEach(word => {
     const d = document.createElement("div");
     d.className = "word";
-   const span = document.createElement("span");
-span.textContent = word;
-d.appendChild(span);
+    const span = document.createElement("span");
+    span.textContent = word;
+    d.appendChild(span);
 
-
-    // Kilitli kelimeler
     if (lockedWords[word]) {
       d.classList.add("locked");
       const group = puzzle.groups.find(g => g.words.includes(word));
@@ -86,7 +82,7 @@ d.appendChild(span);
   });
 }
 
-// Kelime seçme/çıkarma
+// Seç / Çıkar
 function toggleWord(word) {
   if (gameOver || lockedWords[word]) return;
 
@@ -107,7 +103,7 @@ document.getElementById("submit").onclick = () => {
 
   if (match) {
     message.textContent = `Doğru! — ${match.name}`;
-    const justLocked = [...selected]; // yeni kilitlenenler
+    const justLocked = [...selected];
     selected = [];
     document.querySelectorAll(".word.selected").forEach(el => el.classList.remove("selected"));
 
@@ -117,11 +113,13 @@ document.getElementById("submit").onclick = () => {
       reorderGrid();
       renderGrid();
 
-      // Yeni kilitlenenlere animasyon
+      // Lock animasyonu
       justLocked.forEach(word => {
         const el = Array.from(grid.children).find(d => d.textContent === word);
         if (el) el.classList.add("locked-new");
       });
+
+      if (solvedGroups.length === puzzle.groups.length) endGame(true);
     }, 250);
 
     return;
@@ -149,27 +147,20 @@ document.getElementById("shuffle").onclick = () => {
   grid.classList.add("shuffling");
 
   setTimeout(() => {
-    match.words.forEach(w => lockedWords[w] = match.difficulty);
-  solvedGroups.push(match);
-  reorderGrid();
-  renderGrid();
-
-  // Yeni kilitlenenlere animasyon
-  justLocked.forEach(word => {
-    const el = Array.from(grid.children).find(d => d.textContent === word);
-    if (el) el.classList.add("locked-new");
-  });
-
-  if (solvedGroups.length === 4) endGame(true);
-  if (solvedGroups.length === 4) {
-    endGame(true);
-  }
-
-}, 250);
+    const unlockedWords = puzzle.words.filter(w => !lockedWords[w]);
+    shuffle(unlockedWords);
+    puzzle.words = [...solvedGroups.flatMap(g => g.words), ...unlockedWords];
+    selected = [];
+    renderGrid();
+    grid.classList.remove("shuffling");
+  }, 50);
 };
 
 // Reset
-document.getElementById("reset").onclick = () => { selected = []; renderGrid(); };
+document.getElementById("reset").onclick = () => {
+  selected = [];
+  renderGrid();
+};
 
 // Reorder grid
 function reorderGrid() {
@@ -196,10 +187,12 @@ function endGame(win) {
   if (!win) revealAll();
   showExplanations();
 
-  shareResultsBtn.style.display = "inline-flex";
-  shareResultsBtn.disabled = false;
+  // Paylaş butonu
+  if (shareResultsBtn) {
+    shareResultsBtn.style.display = "inline-flex";
+    shareResultsBtn.disabled = false;
+  }
 }
-  
 
 // Tüm kelimeleri göster
 function revealAll() {
@@ -220,9 +213,7 @@ function showExplanations() {
   });
 }
 
-// Sosyal paylaşım
-
-
+// Share metni
 function getShareText(win) {
   const squares = solvedGroups.map(g =>
     g.words.map(() => colorSquare(g.difficulty)).join("")
@@ -240,9 +231,13 @@ ${squares}
 https://selimbektas.github.io/inklings/`;
 }
 
-shareResultsBtn.onclick = () => {
-  const text = encodeURIComponent(getShareText(gameWon));
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;
-  window.open(twitterUrl, "_blank");
-};
+// DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+  shareResultsBtn = document.getElementById("share-results");
 
+  shareResultsBtn.onclick = () => {
+    const text = encodeURIComponent(getShareText(gameWon));
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;
+    window.open(twitterUrl, "_blank");
+  };
+});
