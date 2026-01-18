@@ -11,14 +11,9 @@ const grid = document.getElementById("grid");
 const message = document.getElementById("message");
 const mistakesDiv = document.getElementById("mistakes");
 const shareBtn = document.getElementById("share");
+
+// Pastel renk paleti
 const pastelColors = ["#f9df6d", "#a0c35a", "#8bbcd9", "#b497d6", "#ffb3ba", "#ffdfba", "#bae1ff", "#c3f7d9"];
-
-puzzle.groups.forEach((g, idx) => {
-  g.color = pastelColors[idx % pastelColors.length];
-});
-
-
-const basePath = window.location.pathname.replace(/\/$/, "");
 
 // Bulmacayı yükle
 fetch("puzzles/current.json")
@@ -35,6 +30,12 @@ fetch("puzzles/current.json")
 // Başlat
 function init(data) {
   puzzle = data;
+
+  // Her gruba pastel renk ata
+  puzzle.groups.forEach((g, idx) => {
+    g.color = pastelColors[idx % pastelColors.length];
+  });
+
   shuffle(puzzle.words);
   renderGrid();
 }
@@ -55,17 +56,13 @@ function renderGrid() {
     d.className = "word";
     d.textContent = word;
 
-    // Eğer kelime çözülmüşse, grup rengini uygula
+    // Kilitli kelimeler
     if (lockedWords[word]) {
       d.classList.add("locked");
-
       const group = puzzle.groups.find(g => g.words.includes(word));
-      if (group && group.color) {
-        d.style.backgroundColor = group.color;
-      }
+      if (group && group.color) d.style.backgroundColor = group.color;
     }
 
-    // Seçili kelime
     if (selected.includes(word)) d.classList.add("selected");
 
     d.onclick = () => toggleWord(word);
@@ -73,21 +70,17 @@ function renderGrid() {
   });
 }
 
-
 // Kelime seçme/çıkarma
 function toggleWord(word) {
   if (gameOver || lockedWords[word]) return;
 
-  if (selected.includes(word)) {
-    selected = selected.filter(w => w !== word);
-  } else if (selected.length < 4) {
-    selected.push(word);
-  }
+  if (selected.includes(word)) selected = selected.filter(w => w !== word);
+  else if (selected.length < 4) selected.push(word);
 
   renderGrid();
 }
 
-// Gönder butonu
+// Gönder
 document.getElementById("submit").onclick = () => {
   if (gameOver || selected.length !== 4) return;
 
@@ -98,9 +91,7 @@ document.getElementById("submit").onclick = () => {
 
   if (match) {
     message.textContent = `Doğru! — ${match.name}`;
-
-    // Seçilenleri temizle
-    const justLocked = [...selected]; // sadece yeni kilitlenenler
+    const justLocked = [...selected]; // yeni kilitlenenler
     selected = [];
     document.querySelectorAll(".word.selected").forEach(el => el.classList.remove("selected"));
 
@@ -110,7 +101,7 @@ document.getElementById("submit").onclick = () => {
       reorderGrid();
       renderGrid();
 
-      // Sadece yeni kilitlenen kelimelere animasyon ekle
+      // Yeni kilitlenenlere animasyon
       justLocked.forEach(word => {
         const el = Array.from(grid.children).find(d => d.textContent === word);
         if (el) el.classList.add("locked-new");
@@ -119,15 +110,14 @@ document.getElementById("submit").onclick = () => {
 
     if (solvedGroups.length === 4) endGame(true);
     return;
-}
+  }
 
+  // Yanlış eşleşme
   const almost = puzzle.groups.some(g =>
     g.words.filter(w => selected.includes(w)).length === 3
   );
 
-  message.textContent = almost
-    ? "Neredeyse oldu! Bir tane kaldı!"
-    : "Yanlış eşleştirme.";
+  message.textContent = almost ? "Neredeyse oldu! Bir tane kaldı!" : "Yanlış eşleştirme.";
 
   mistakes++;
   shakeSelected();
@@ -138,67 +128,30 @@ document.getElementById("submit").onclick = () => {
   else renderGrid();
 };
 
-// Temizle butonu
-document.getElementById("reset").onclick = () => {
-  selected = [];
-  renderGrid();
-};
-
-// Karıştır butonu
+// Shuffle
 document.getElementById("shuffle").onclick = () => {
   if (gameOver) return;
-
   grid.classList.add("shuffling");
 
-  // Mevcut konumları kaydet
-  const positions = Array.from(grid.children).map(el => el.getBoundingClientRect());
-
   setTimeout(() => {
-    // Çözülmemiş kelimeleri al ve karıştır
     const unlockedWords = puzzle.words.filter(w => !lockedWords[w]);
     shuffle(unlockedWords);
-
-    // Çözülmüş kelimeler üstte sabit
-    puzzle.words = [
-      ...solvedGroups.flatMap(g => g.words),
-      ...unlockedWords
-    ];
-
+    puzzle.words = [...solvedGroups.flatMap(g => g.words), ...unlockedWords];
     selected = [];
     renderGrid();
-
-    // Karıştırılmış kelimelere "kayma" efekti
-    const newPositions = Array.from(grid.children).map(el => el.getBoundingClientRect());
-
-    grid.querySelectorAll(".word").forEach((el, i) => {
-      const dx = positions[i].left - newPositions[i].left;
-      const dy = positions[i].top - newPositions[i].top;
-
-      el.style.transform = `translate(${dx}px, ${dy}px)`;
-      requestAnimationFrame(() => {
-        el.style.transition = "transform 0.3s ease";
-        el.style.transform = "";
-      });
-    });
-
-    setTimeout(() => {
-      grid.classList.remove("shuffling");
-      grid.querySelectorAll(".word").forEach(el => el.style.transition = "");
-    }, 350);
-
+    grid.classList.remove("shuffling");
   }, 50);
 };
 
+// Reset
+document.getElementById("reset").onclick = () => { selected = []; renderGrid(); };
 
-// Grid sıralama (çözülmüşleri üstte tut)
+// Reorder grid
 function reorderGrid() {
-  puzzle.words = [
-    ...solvedGroups.flatMap(g => g.words),
-    ...puzzle.words.filter(w => !lockedWords[w])
-  ];
+  puzzle.words = [...solvedGroups.flatMap(g => g.words), ...puzzle.words.filter(w => !lockedWords[w])];
 }
 
-// Seçili kelimeleri sallama efekti
+// Shake animasyonu
 function shakeSelected() {
   document.querySelectorAll(".selected").forEach(el => {
     el.classList.add("shake");
@@ -209,66 +162,47 @@ function shakeSelected() {
 // Oyun bitişi
 function endGame(win) {
   gameOver = true;
-  message.textContent = win
-    ? "Tebrikler! Tüm grupları tamamladın!"
-    : "Bir dahaki sefere!";
-
+  message.textContent = win ? "Tebrikler! Tüm grupları tamamladın!" : "Bir dahaki sefere!";
   if (!win) revealAll();
   showExplanations();
-  shareBtn.style.display = "block";
 }
 
 // Tüm kelimeleri göster
 function revealAll() {
-  puzzle.groups.forEach(g =>
-    g.words.forEach(w => lockedWords[w] = g.difficulty)
-  );
+  puzzle.groups.forEach(g => g.words.forEach(w => lockedWords[w] = g.difficulty));
+  renderGrid();
 }
 
-// Açıklamaları göster
+// Açıklamalar
 function showExplanations() {
   const ex = document.getElementById("explanations");
   ex.innerHTML = "";
   puzzle.groups.forEach(g => {
     const d = document.createElement("div");
-    d.className = `explanation ${g.difficulty}`;
+    d.className = "explanation";
+    d.style.backgroundColor = g.color;
     d.innerHTML = `<strong>${g.name}</strong><br>${g.explanation}`;
     ex.appendChild(d);
   });
 }
 
-// Sonuç paylaşımı
-shareBtn.onclick = () => {
-  const squares = solvedGroups.map(g =>
-    g.words.map(() => colorSquare(g.difficulty)).join("")
-  ).join("\n");
-
-  navigator.clipboard.writeText(`Literary Connections\n\n${squares}`);
-  message.textContent = "Results copied.";
-};
-
-function colorSquare(d) {
-  return {
-    yellow: "🟨",
-    green: "🟩",
-    blue: "🟦",
-    purple: "🟪"
-  }[d];
-}
-
+// Sosyal paylaşım
 const twitterBtn = document.getElementById("share-twitter");
 const instaBtn = document.getElementById("share-instagram");
+const socialShareDiv = document.getElementById("social-share");
+socialShareDiv.style.display = "flex";
 
-socialShareDiv.style.display = "flex"; // görünür yap
+function getShareText() {
+  const squares = solvedGroups.map(g => g.words.map(() => "🟩").join("")).join("\n");
+  return `Edebi Connections\n\n${squares}`;
+}
 
 twitterBtn.onclick = () => {
   const text = encodeURIComponent(getShareText());
-  const url = `https://twitter.com/intent/tweet?text=${text}`;
-  window.open(url, "_blank");
+  window.open(`https://twitter.com/intent/tweet?text=${text}`, "_blank");
 };
 
 instaBtn.onclick = () => {
   navigator.clipboard.writeText(getShareText());
   message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
 };
-
