@@ -1,70 +1,70 @@
 {
   "words": [
-    "Kafka",
-    "Tanpınar",
-    "Borges",
-    "Pamuk",
+    "Oğuz Atay",
+    "Ahmet Hamdi Tanpınar",
+    "Orhan Pamuk",
+    "Yusuf Atılgan",
 
-    "Gregor Samsa",
-    "Huzur",
-    "Tutunamayanlar",
-    "Ulysses",
+    "J.R.R. Tolkien",
+    "Ursula K. Le Guin",
+    "George R.R. Martin",
+    "Jorge Luis Borges",
 
-    "Prag",
-    "Buenos Aires",
-    "İstanbul",
-    "Dublin",
+    "Albert Camus",
+    "Gustave Flaubert",
+    "Marcel Proust",
+    "Jean-Paul Sartre",
 
-    "Leopold Bloom",
-    "Mümtaz",
-    "Selim Işık",
-    "Kemal Basmacı"
+    "Virginia Woolf",
+    "Sylvia Plath",
+    "Cesare Pavese",
+    "Stefan Zweig"
   ],
 
   "groups": [
     {
-      "name": "Yazarlar",
+      "name": "Türk Yazarlar",
       "difficulty": "yellow",
       "words": [
-        "Kafka",
-        "Tanpınar",
-        "Borges",
-        "Pamuk"
+        "Oğuz Atay",
+        "Ahmet Hamdi Tanpınar",
+        "Orhan Pamuk",
+        "Yusuf Atılgan"
       ],
-      "explanation": "Modern edebiyatın farklı coğrafyalardan gelen, anlatı anlayışını dönüştüren yazarları."
+      "explanation": "Cumhuriyet dönemi Türk edebiyatının birey, zaman ve modernleşme ekseninde yazan yazarları."
     },
     {
-      "name": "Romanlar",
+      "name": "Fantastik Edebiyat Yazarları",
       "difficulty": "green",
       "words": [
-        "Huzur",
-        "Tutunamayanlar",
-        "Ulysses",
-        "Gregor Samsa"
+        "J.R.R. Tolkien",
+        "Ursula K. Le Guin",
+        "George R.R. Martin",
+        "Jorge Luis Borges"
       ],
-      "explanation": "Modern edebiyatın kırılma noktası kabul edilen romanlar ve anlatı evrenleri."
+      "explanation": "Gerçekliği dönüştüren, hayali evrenler ve metafizik anlatılar kuran yazarlar."
     },
     {
-      "name": "Edebiyatla Özdeşleşen Şehirler",
+      "name": "Fransız Yazarlar",
       "difficulty": "blue",
       "words": [
-        "Prag",
-        "Buenos Aires",
-        "İstanbul",
-        "Dublin"
+        "Albert Camus",
+        "Gustave Flaubert",
+        "Marcel Proust",
+        "Jean-Paul Sartre"
       ],
-      "explanation": "Yazarları ve metinleriyle edebi kimlik kazanmış şehirler."
+      "explanation": "Fransız edebiyatının roman, düşünce ve anlatı biçimlerini derinden etkilemiş yazarları."
     },
     {
-      "name": "Roman Karakterleri",
+      "name": "İntihar Eden Yazarlar",
       "difficulty": "purple",
       "words": [
-        "Leopold Bloom",
-        "Mümtaz",
-        "Selim Işık",
-        "Kemal Basmacı"
+        "Virginia Woolf",
+        "Sylvia Plath",
+        "Cesare Pavese",
+        "Stefan Zweig"
       ],
-      "explanation": "Modern romanın iç dünyası güçlü, hafızalarda yer etmiş karakterleri."
+      "explanation": "Hayatlarını trajik biçimde sonlandırmış, edebiyat tarihinde derin izler bırakmış yazarlar."
     }
   ]
 }
