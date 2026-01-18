@@ -54,7 +54,10 @@ function renderGrid() {
   puzzle.words.forEach(word => {
     const d = document.createElement("div");
     d.className = "word";
-    d.textContent = word;
+   const span = document.createElement("span");
+span.textContent = word;
+d.appendChild(span);
+
 
     // Kilitli kelimeler
     if (lockedWords[word]) {
