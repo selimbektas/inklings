@@ -1,9 +1,10 @@
 body {
-  font-family: Georgia, serif;
-  background: #f6f5f2;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #f7f6f3;
   color: #111;
   max-width: 720px;
-  margin: 40px auto;
+  margin: 48px auto;
+  padding: 0 16px;
   text-align: center;
 }
 
