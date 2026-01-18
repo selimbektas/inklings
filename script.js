@@ -14,27 +14,26 @@ const shareBtn = document.getElementById("share");
 
 const basePath = window.location.pathname.replace(/\/$/, "");
 
+// Bulmacayı yükle
 fetch("puzzles/current.json")
   .then(res => {
-    if (!res.ok) {
-      throw new Error("Puzzle not found");
-    }
+    if (!res.ok) throw new Error("Puzzle not found");
     return res.json();
   })
-  .then(data => {
-    init(data);
-  })
+  .then(data => init(data))
   .catch(err => {
     console.error(err);
-    document.getElementById("message").textContent = "Bulmaca yüklenemedi.";
+    message.textContent = "Bulmaca yüklenemedi.";
   });
 
+// Başlat
 function init(data) {
   puzzle = data;
   shuffle(puzzle.words);
   renderGrid();
 }
 
+// Diziyi karıştır
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -42,6 +41,7 @@ function shuffle(arr) {
   }
 }
 
+// Grid render
 function renderGrid() {
   grid.innerHTML = "";
   puzzle.words.forEach(word => {
@@ -57,6 +57,7 @@ function renderGrid() {
   });
 }
 
+// Kelime seçme/çıkarma
 function toggleWord(word) {
   if (gameOver || lockedWords[word]) return;
 
@@ -69,6 +70,7 @@ function toggleWord(word) {
   renderGrid();
 }
 
+// Gönder butonu
 document.getElementById("submit").onclick = () => {
   if (gameOver || selected.length !== 4) return;
 
@@ -77,23 +79,13 @@ document.getElementById("submit").onclick = () => {
     g.words.every(w => selected.includes(w))
   );
 
-  /* =========================
-     DOĞRU CEVAP
-     ========================= */
   if (match) {
     message.textContent = `Doğru! — ${match.name}`;
-
     selected = [];
-
-    document.querySelectorAll(".word.selected").forEach(el => {
-      el.classList.remove("selected");
-    });
+    document.querySelectorAll(".word.selected").forEach(el => el.classList.remove("selected"));
 
     setTimeout(() => {
-      match.words.forEach(w => {
-        lockedWords[w] = match.difficulty;
-      });
-
+      match.words.forEach(w => lockedWords[w] = match.difficulty);
       solvedGroups.push(match);
       reorderGrid();
       renderGrid();
@@ -103,10 +95,6 @@ document.getElementById("submit").onclick = () => {
     return;
   }
 
-  /* =========================
-     YANLIŞ / NEREDEYSE
-     ========================= */
-
   const almost = puzzle.groups.some(g =>
     g.words.filter(w => selected.includes(w)).length === 3
   );
@@ -115,132 +103,22 @@ document.getElementById("submit").onclick = () => {
     ? "Neredeyse oldu! Bir tane kaldı!"
     : "Yanlış eşleştirme.";
 
-  // 🔴 HER İKİSİ DE DENEME
   mistakes++;
-
   shakeSelected();
   selected = [];
-
   mistakesDiv.textContent = `Deneme: ${mistakes} / 4`;
 
-  if (mistakes >= 4) {
-    endGame(false);
-    return;
-  }
-
-  renderGrid();
+  if (mistakes >= 4) endGame(false);
+  else renderGrid();
 };
 
-
-
-
+// Temizle butonu
 document.getElementById("reset").onclick = () => {
   selected = [];
   renderGrid();
 };
 
-function reorderGrid() {
-  puzzle.words = [
-    ...solvedGroups.flatMap(g => g.words),
-    ...puzzle.words.filter(w => !lockedWords[w])
-  ];
-}
-
-function shakeSelected() {
-  document.querySelectorAll(".selected").forEach(el => {
-    el.classList.add("shake");
-    setTimeout(() => el.classList.remove("shake"), 350);
-  });
-}
-
-function endGame(win) {
-  gameOver = true;
-  message.textContent = win
-    ? "Tebrikler! Tüm grupları tamamladın!"
-    : "Bir dahaki sefere!";
-
-  if (!win) revealAll();
-  showExplanations();
-  shareBtn.style.display = "block";
-}
-document.getElementById("social-share").style.display = "block";
-
-
-function revealAll() {
-  puzzle.groups.forEach(g =>
-    g.words.forEach(w => lockedWords[w] = g.difficulty)
-  );
-}
-
-function showExplanations() {
-  const ex = document.getElementById("explanations");
-  ex.innerHTML = "";
-
-  puzzle.groups.forEach(g => {
-    const d = document.createElement("div");
-    d.className = `explanation ${g.difficulty}`;
-    d.innerHTML = `<strong>${g.name}</strong><br>${g.explanation}`;
-    ex.appendChild(d);
-  });
-}
-
-shareBtn.onclick = () => {
-  const squares = solvedGroups.map(g =>
-    g.words.map(() => colorSquare(g.difficulty)).join("")
-  ).join("\n");
-
-  navigator.clipboard.writeText(
-    `Literary Connections ${today}\n\n${squares}`
-  );
-
-  message.textContent = "Results copied.";
-};
-
-function colorSquare(d) {
-  return {
-    yellow: "🟨",
-    green: "🟩",
-    blue: "🟦",
-    purple: "🟪"
-  }[d];
-}
-const twitterBtn = document.getElementById("share-twitter");
-const instaBtn = document.getElementById("share-instagram");
-
-function getShareText() {
-  const squares = solvedGroups.map(g =>
-    g.words.map(() => colorSquare(g.difficulty)).join("")
-  ).join("\n");
-
-  return `Edebi Connections\n\n${squares}`;
-}
-
-twitterBtn.onclick = () => {
-  const text = encodeURIComponent(getShareText());
-  const url = `https://twitter.com/intent/tweet?text=${text}`;
-  window.open(url, "_blank");
-};
-
-instaBtn.onclick = () => {
-  navigator.clipboard.writeText(getShareText());
-  message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
-};
-document.getElementById("shuffle").onclick = () => {
-  if (gameOver) return;
-
-  // sadece çözülmemiş kelimeleri karıştır
-  const unlockedWords = puzzle.words.filter(w => !lockedWords[w]);
-  shuffle(unlockedWords);
-
-  // çözülmüşler üstte sabit kalsın
-  puzzle.words = [
-    ...solvedGroups.flatMap(g => g.words),
-    ...unlockedWords
-  ];
-
-  selected = [];
-  renderGrid();
-};
+// Karıştır butonu
 document.getElementById("shuffle").onclick = () => {
   if (gameOver) return;
 
@@ -260,3 +138,93 @@ document.getElementById("shuffle").onclick = () => {
     grid.classList.remove("shuffling");
   }, 200);
 };
+
+// Grid sıralama (çözülmüşleri üstte tut)
+function reorderGrid() {
+  puzzle.words = [
+    ...solvedGroups.flatMap(g => g.words),
+    ...puzzle.words.filter(w => !lockedWords[w])
+  ];
+}
+
+// Seçili kelimeleri sallama efekti
+function shakeSelected() {
+  document.querySelectorAll(".selected").forEach(el => {
+    el.classList.add("shake");
+    setTimeout(() => el.classList.remove("shake"), 350);
+  });
+}
+
+// Oyun bitişi
+function endGame(win) {
+  gameOver = true;
+  message.textContent = win
+    ? "Tebrikler! Tüm grupları tamamladın!"
+    : "Bir dahaki sefere!";
+
+  if (!win) revealAll();
+  showExplanations();
+  shareBtn.style.display = "block";
+}
+
+// Tüm kelimeleri göster
+function revealAll() {
+  puzzle.groups.forEach(g =>
+    g.words.forEach(w => lockedWords[w] = g.difficulty)
+  );
+}
+
+// Açıklamaları göster
+function showExplanations() {
+  const ex = document.getElementById("explanations");
+  ex.innerHTML = "";
+  puzzle.groups.forEach(g => {
+    const d = document.createElement("div");
+    d.className = `explanation ${g.difficulty}`;
+    d.innerHTML = `<strong>${g.name}</strong><br>${g.explanation}`;
+    ex.appendChild(d);
+  });
+}
+
+// Sonuç paylaşımı
+shareBtn.onclick = () => {
+  const squares = solvedGroups.map(g =>
+    g.words.map(() => colorSquare(g.difficulty)).join("")
+  ).join("\n");
+
+  navigator.clipboard.writeText(`Literary Connections\n\n${squares}`);
+  message.textContent = "Results copied.";
+};
+
+function colorSquare(d) {
+  return {
+    yellow: "🟨",
+    green: "🟩",
+    blue: "🟦",
+    purple: "🟪"
+  }[d];
+}
+
+const twitterBtn = document.getElementById("share-twitter");
+const instaBtn = document.getElementById("share-instagram");
+
+function getShareText() {
+  const squares = solvedGroups.map(g =>
+    g.words.map(() => colorSquare(g.difficulty)).join("")
+  ).join("\n");
+  return `Edebi Connections\n\n${squares}`;
+}
+
+twitterBtn.onclick = () => {
+  const text = encodeURIComponent(getShareText());
+  const url = `https://twitter.com/intent/tweet?text=${text}`;
+  window.open(url, "_blank");
+};
+
+instaBtn.onclick = () => {
+  navigator.clipboard.writeText(getShareText());
+  message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
+};
+
+// Sosyal paylaşım görünür yap
+document.getElementById("social-share").style.display = "block";
