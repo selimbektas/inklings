@@ -223,3 +223,19 @@ instaBtn.onclick = () => {
   navigator.clipboard.writeText(getShareText());
   message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
 };
+document.getElementById("shuffle").onclick = () => {
+  if (gameOver) return;
+
+  // sadece çözülmemiş kelimeleri karıştır
+  const unlockedWords = puzzle.words.filter(w => !lockedWords[w]);
+  shuffle(unlockedWords);
+
+  // çözülmüşler üstte sabit kalsın
+  puzzle.words = [
+    ...solvedGroups.flatMap(g => g.words),
+    ...unlockedWords
+  ];
+
+  selected = [];
+  renderGrid();
+};
