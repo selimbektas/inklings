@@ -1,50 +1,70 @@
 {
-  "title": "Günlük Edebiyat Oyunu – Dörtlü Gruplar Oluştur!",
   "words": [
     "Tutunamayanlar",
-    "Oğuz Atay",
-    "Yabancılaşma",
-    "İroni",
-
     "Saatleri Ayarlama Enstitüsü",
-    "Ahmet Hamdi Tanpınar",
-    "Zaman",
-    "Modernleşme",
-
-    "Kürk Mantolu Madonna",
-    "Sabahattin Ali",
-    "Yalnızlık",
-    "İç dünya",
-
+    "Aylak Adam",
     "Masumiyet Müzesi",
-    "Orhan Pamuk",
+
+    "Yalnızlık",
+    "Zaman",
     "Bellek",
-    "Aşk"
+    "Nesneler",
+
+    "İroni",
+    "İç Monolog",
+    "Bunalım",
+    "Modern Birey",
+
+    "Aşk",
+    "Kimlik",
+    "Toplum",
+    "Hatırlama"
   ],
+
   "groups": [
     {
-      "name": "Tutunamayanlar",
+      "name": "Orhan Pamuk",
       "difficulty": "yellow",
-      "words": ["Tutunamayanlar", "Oğuz Atay", "Yabancılaşma", "İroni"],
-      "explanation": "Modern bireyin toplumla kurduğu sorunlu ilişkiyi ironik bir dille ele alan roman ve bağlam."
+      "words": [
+        "Masumiyet Müzesi",
+        "Nesneler",
+        "Aşk",
+        "Kimlik"
+      ],
+      "explanation": "Aşk ve kimlik arayışını gündelik nesneler ve hatıralar üzerinden kuran modern anlatılar."
     },
     {
-      "name": "Zaman ve Modernleşme",
+      "name": "Yusuf Atılgan",
       "difficulty": "green",
-      "words": ["Saatleri Ayarlama Enstitüsü", "Ahmet Hamdi Tanpınar", "Zaman", "Modernleşme"],
-      "explanation": "Toplumsal dönüşümün zaman algısı üzerinden ele alındığı anlatı."
+      "words": [
+        "Aylak Adam",
+        "Yalnızlık",
+        "İç Monolog",
+        "Bunalım"
+      ],
+      "explanation": "Toplumdan kopuk bireyin iç dünyasını, yalnızlık ve varoluşsal bunalım üzerinden aktaran anlatı evreni."
     },
     {
-      "name": "İçsel Yalnızlık",
+      "name": "Ahmet Hamdi Tanpınar",
       "difficulty": "blue",
-      "words": ["Kürk Mantolu Madonna", "Sabahattin Ali", "Yalnızlık", "İç dünya"],
-      "explanation": "Karakterlerin iç dünyasına odaklanan, duygusal yalnızlığı merkeze alan anlatılar."
+      "words": [
+        "Saatleri Ayarlama Enstitüsü",
+        "Zaman",
+        "Bellek",
+        "Hatırlama"
+      ],
+      "explanation": "Zaman ve bellek kavramları üzerinden modernleşmenin bireysel ve toplumsal etkilerini sorgulayan anlatılar."
     },
     {
-      "name": "Bellek ve Aşk",
+      "name": "Oğuz Atay",
       "difficulty": "purple",
-      "words": ["Masumiyet Müzesi", "Orhan Pamuk", "Bellek", "Aşk"],
-      "explanation": "Hatırlama, nesneler ve aşk etrafında kurulan modern anlatı."
+      "words": [
+        "Tutunamayanlar",
+        "İroni",
+        "Modern Birey",
+        "Toplum"
+      ],
+      "explanation": "Modern bireyin toplumla kurduğu sorunlu ilişkiyi ironi ve anlatı kırılmaları üzerinden ele alan metinler."
     }
   ]
 }
