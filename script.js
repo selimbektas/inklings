@@ -77,43 +77,58 @@ document.getElementById("submit").onclick = () => {
     g.words.every(w => selected.includes(w))
   );
 
+  /* =========================
+     DOĞRU CEVAP
+     ========================= */
   if (match) {
-  message.textContent = `Doğru! — ${match.name}`;
+    message.textContent = `Doğru! — ${match.name}`;
 
-  // 1️⃣ STATE'İ TEMİZLE
-  selected = [];
+    // seçimi temizle
+    selected = [];
 
-  // 2️⃣ DOM'DAN SELECTED CLASS'INI KALDIR
-  document.querySelectorAll(".word.selected").forEach(el => {
-    el.classList.remove("selected");
-  });
+    // seçili class'larını kaldır
+    document.querySelectorAll(".word.selected").forEach(el => {
+      el.classList.remove("selected");
+    });
 
-  // 3️⃣ KISA BEKLEME (ANİMASYON + AKIŞ)
-  setTimeout(() => {
-    // kilitle
-    match.words.forEach(w => lockedWords[w] = match.difficulty);
-    solvedGroups.push(match);
+    // kısa animasyon gecikmesi
+    setTimeout(() => {
+      match.words.forEach(w => {
+        lockedWords[w] = match.difficulty;
+      });
 
-    // en üste al
-    reorderGrid();
+      solvedGroups.push(match);
 
-    // yeniden çiz
-    renderGrid();
-  }, 300);
+      // doğru grup en üste gelsin
+      reorderGrid();
+      renderGrid();
+    }, 250);
 
-  return; // 🔴 ÇOK ÖNEMLİ
-}
-
-  } else {
-    const almost = puzzle.groups.some(g =>
-      g.words.filter(w => selected.includes(w)).length === 3
-    );
-    message.textContent = almost
-      ? "Neredeyse oldu! Bir tane kaldı!"
-      : "Yanlış eşleştirme.";
-    if (!almost) mistakes++;
-    shakeSelected();
+    return; // 🔴 BURASI ŞART
   }
+
+  /* =========================
+     YANLIŞ CEVAP
+     ========================= */
+  const almost = puzzle.groups.some(g =>
+    g.words.filter(w => selected.includes(w)).length === 3
+  );
+
+  message.textContent = almost
+    ? "Neredeyse oldu! Bir tane kaldı!"
+    : "Yanlış eşleştirme.";
+
+  if (!almost) mistakes++;
+
+  shakeSelected();
+
+  selected = [];
+  mistakesDiv.textContent = `Hata: ${mistakes} / 4`;
+
+  if (mistakes >= 4) endGame(false);
+
+  renderGrid();
+};
 
   // ⬇️ ÖNCE çiz
   renderGrid();
