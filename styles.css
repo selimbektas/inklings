@@ -284,3 +284,20 @@ button:disabled {
 .word:hover {
   transform: scale(1.05);
 }
+/* Shuffle sırasında kelimelerin geçiş efekti */
+.word {
+  transition: transform 0.3s ease, background-color 0.2s ease;
+  position: relative; /* shuffle animasyonu için gerekli */
+}
+
+/* Shuffle sırasında grid hafifçe sallanıyor gibi */
+#grid.shuffling {
+  animation: gridShake 0.2s ease-in-out;
+}
+
+@keyframes gridShake {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-3px); }
+  50% { transform: translateY(3px); }
+  75% { transform: translateY(-3px); }
+}
