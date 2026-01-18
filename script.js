@@ -176,13 +176,10 @@ function endGame(win) {
   if (!win) revealAll();
   showExplanations();
 
-  // 🔑 KRİTİK SATIRLAR
-  const shareBtn = document.getElementById("share-results");
-  if (shareBtn) {
-    shareBtn.disabled = false;
-    shareBtn.style.display = "inline-flex";
-  }
+  shareResultsBtn.disabled = false;
+  shareResultsBtn.style.display = "inline-flex";
 }
+
 
 
 
