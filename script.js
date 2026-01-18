@@ -242,12 +242,7 @@ function colorSquare(d) {
 const twitterBtn = document.getElementById("share-twitter");
 const instaBtn = document.getElementById("share-instagram");
 
-function getShareText() {
-  const squares = solvedGroups.map(g =>
-    g.words.map(() => colorSquare(g.difficulty)).join("")
-  ).join("\n");
-  return `Edebi Connections\n\n${squares}`;
-}
+socialShareDiv.style.display = "flex"; // görünür yap
 
 twitterBtn.onclick = () => {
   const text = encodeURIComponent(getShareText());
@@ -260,5 +255,3 @@ instaBtn.onclick = () => {
   message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
 };
 
-// Sosyal paylaşım görünür yap
-document.getElementById("social-share").style.display = "block";
