@@ -78,10 +78,32 @@ document.getElementById("submit").onclick = () => {
   );
 
   if (match) {
+  message.textContent = `Doğru! — ${match.name}`;
+
+  // 1️⃣ STATE'İ TEMİZLE
+  selected = [];
+
+  // 2️⃣ DOM'DAN SELECTED CLASS'INI KALDIR
+  document.querySelectorAll(".word.selected").forEach(el => {
+    el.classList.remove("selected");
+  });
+
+  // 3️⃣ KISA BEKLEME (ANİMASYON + AKIŞ)
+  setTimeout(() => {
+    // kilitle
     match.words.forEach(w => lockedWords[w] = match.difficulty);
     solvedGroups.push(match);
-    message.textContent = `Doğru! — ${match.name}`;
+
+    // en üste al
     reorderGrid();
+
+    // yeniden çiz
+    renderGrid();
+  }, 300);
+
+  return; // 🔴 ÇOK ÖNEMLİ
+}
+
   } else {
     const almost = puzzle.groups.some(g =>
       g.words.filter(w => selected.includes(w)).length === 3
