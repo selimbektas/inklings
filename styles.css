@@ -184,3 +184,7 @@ button:disabled {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* Sadece yeni kilitlenen kelimeler animasyonlu */
+.locked-new {
+  animation: lockPop 0.25s ease forwards;
+}
