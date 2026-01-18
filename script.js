@@ -222,7 +222,6 @@ instaBtn.onclick = () => {
   navigator.clipboard.writeText(getShareText());
   message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
 };
-const shareResultsBtn = document.getElementById("share-results");
 
 function getShareText() {
   const squares = solvedGroups.map(g =>
