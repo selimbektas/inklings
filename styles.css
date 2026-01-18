@@ -192,7 +192,9 @@ button:disabled {
   overflow: hidden;
 }
 
-#share-results {
-  margin-top: 10px;
+.share-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
 
