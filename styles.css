@@ -230,3 +230,57 @@ button:disabled {
   50% { transform: translateY(-4px); }
   100% { transform: translateY(0); }
 }
+/* Temel grid ve kelime stili */
+#grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.word {
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Seçilen kelime efekti */
+.word.selected {
+  background-color: #d1e7ff;
+  transform: scale(1.05);
+}
+
+/* Kilitli kelime efekti */
+.word.locked {
+  background-color: #b2f2bb;
+  cursor: default;
+}
+
+/* Shake animasyonu */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.word.shake {
+  animation: shake 0.35s;
+}
+
+/* Shuffle animasyonu */
+#grid.shuffling .word {
+  animation: shuffleAnim 0.2s ease-in-out;
+}
+
+@keyframes shuffleAnim {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Responsive efektler için hover */
+.word:hover {
+  transform: scale(1.05);
+}
