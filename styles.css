@@ -4,7 +4,6 @@
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont,
                "Segoe UI", system-ui, sans-serif;
-  font-weight: 400;
   background: #FFEE8C;
   color: #111;
   max-width: 720px;
@@ -20,34 +19,67 @@ body {
 
 .puzzle-subtitle {
   font-size: 0.95rem;
-  font-weight: 400;
   color: #555;
 }
 
 /* ===============================
-   GRID & KELİMELER
+   TITLE
+=============================== */
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.logo-icon {
+  width: 28px;
+  height: auto;
+}
+
+/* ===============================
+   GRID
 =============================== */
 #grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;                  /* biraz daha sıkı */
+  gap: 8px;
   margin: 24px 0;
 }
 
-
+/* ===============================
+   WORD CARDS
+=============================== */
 .word {
   height: 56px;
   padding: 6px 8px;
-
   background: white;
   border-radius: 12px;
 
   display: flex;
-  align-items: center;        /* ✅ DİKEY ORTA */
-  justify-content: center;    /* yatay orta */
+  align-items: center;      /* dikey orta */
+  justify-content: center;  /* yatay orta */
 
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
   cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.word span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Hover */
@@ -57,57 +89,61 @@ body {
   box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
-/* Seçili kelime */
+/* Selected */
 .word.selected {
   background-color: #d1e7ff;
   transform: scale(1.05);
   box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
 
-/* Kilitli kelime */
+/* Locked */
 .word.locked {
-  cursor: default;
   pointer-events: none;
+  cursor: default;
 }
 
-/* Yeni kilitlenen kelime animasyonu */
+/* Yeni kilitlenme animasyonu */
 .word.locked-new {
   animation: lockPop 0.25s ease forwards;
 }
 
-/* Shuffle animasyonu */
+@keyframes lockPop {
+  0%   { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ===============================
+   SHUFFLE
+=============================== */
+#grid.shuffling {
+  animation: gridShake 0.25s ease;
+}
+
 #grid.shuffling .word {
   animation: shuffleAnim 0.25s ease-in-out;
 }
 
 @keyframes shuffleAnim {
-  0%   { transform: translateY(0) rotate(0deg); }
-  25%  { transform: translateY(-3px) rotate(1deg); }
-  50%  { transform: translateY(3px) rotate(-1deg); }
-  75%  { transform: translateY(-2px) rotate(1deg); }
-  100% { transform: translateY(0) rotate(0deg); }
-}
-
-/* Grid hafif sallanması */
-#grid.shuffling {
-  animation: gridShake 0.2s ease-in-out;
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
 }
 
 @keyframes gridShake {
-  0%, 100% { transform: translateY(0); }
-  25%      { transform: translateY(-3px); }
-  50%      { transform: translateY(3px); }
-  75%      { transform: translateY(-3px); }
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
 }
 
-/* Yanlış seçim shake */
+/* ===============================
+   WRONG ANSWER SHAKE
+=============================== */
 @keyframes shakeHard {
   0% { transform: translateX(0); }
-  15% { transform: translateX(-6px); }
-  30% { transform: translateX(6px); }
-  45% { transform: translateX(-5px); }
-  60% { transform: translateX(5px); }
-  75% { transform: translateX(-3px); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
   100% { transform: translateX(0); }
 }
 
@@ -115,7 +151,49 @@ body {
   animation: shakeHard 0.35s;
 }
 
-/* Açıklamalar */
+/* ===============================
+   BUTTONS
+=============================== */
+button {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  transition: all 0.15s ease;
+}
+
+button:hover {
+  background-color: #e6f2ff;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===============================
+   SHARE BUTTON
+=============================== */
+.share-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* ===============================
+   EXPLANATIONS
+=============================== */
 #explanations {
   margin-top: 30px;
   text-align: left;
@@ -131,70 +209,3 @@ body {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-/* Buttons */
-button {
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: none;
-  background: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  font-weight: 500;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-button:hover {
-  background-color: #e6f2ff;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-#social-share {
-  display: flex;
-  justify-content: center; /* yatayda ortala */
-  gap: 10px;               /* butonlar arası boşluk */
-  margin-top: 15px;
-}
-.title-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;          /* logo – yazı arası */
-  margin-bottom: 6px;
-}
-
-.logo-icon {
-  width: 28px;       /* ikon boyutu */
-  height: auto;
-}
-
-.word span {
-  font-size: 0.85rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: center;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.share-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 16px;
-}
-
