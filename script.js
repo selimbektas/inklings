@@ -81,6 +81,9 @@ document.getElementById("submit").onclick = () => {
 
   if (match) {
     message.textContent = `Doğru! — ${match.name}`;
+
+    // Seçilenleri temizle
+    const justLocked = [...selected]; // sadece yeni kilitlenenler
     selected = [];
     document.querySelectorAll(".word.selected").forEach(el => el.classList.remove("selected"));
 
@@ -89,11 +92,17 @@ document.getElementById("submit").onclick = () => {
       solvedGroups.push(match);
       reorderGrid();
       renderGrid();
+
+      // Sadece yeni kilitlenen kelimelere animasyon ekle
+      justLocked.forEach(word => {
+        const el = Array.from(grid.children).find(d => d.textContent === word);
+        if (el) el.classList.add("locked-new");
+      });
     }, 250);
 
     if (solvedGroups.length === 4) endGame(true);
     return;
-  }
+}
 
   const almost = puzzle.groups.some(g =>
     g.words.filter(w => selected.includes(w)).length === 3
