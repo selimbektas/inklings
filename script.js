@@ -83,33 +83,30 @@ document.getElementById("submit").onclick = () => {
   if (match) {
     message.textContent = `Doğru! — ${match.name}`;
 
-    // seçimi temizle
     selected = [];
 
-    // seçili class'larını kaldır
     document.querySelectorAll(".word.selected").forEach(el => {
       el.classList.remove("selected");
     });
 
-    // kısa animasyon gecikmesi
     setTimeout(() => {
       match.words.forEach(w => {
         lockedWords[w] = match.difficulty;
       });
 
       solvedGroups.push(match);
-
-      // doğru grup en üste gelsin
       reorderGrid();
       renderGrid();
     }, 250);
 
-    return; // 🔴 BURASI ŞART
+    if (solvedGroups.length === 4) endGame(true);
+    return;
   }
 
   /* =========================
-     YANLIŞ CEVAP
+     YANLIŞ / NEREDEYSE
      ========================= */
+
   const almost = puzzle.groups.some(g =>
     g.words.filter(w => selected.includes(w)).length === 3
   );
@@ -118,17 +115,22 @@ document.getElementById("submit").onclick = () => {
     ? "Neredeyse oldu! Bir tane kaldı!"
     : "Yanlış eşleştirme.";
 
-  if (!almost) mistakes++;
+  // 🔴 HER İKİSİ DE DENEME
+  mistakes++;
 
   shakeSelected();
-
   selected = [];
-  mistakesDiv.textContent = `Hata: ${mistakes} / 4`;
 
-  if (mistakes >= 4) endGame(false);
+  mistakesDiv.textContent = `Deneme: ${mistakes} / 4`;
+
+  if (mistakes >= 4) {
+    endGame(false);
+    return;
+  }
 
   renderGrid();
 };
+
 
 
 
