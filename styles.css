@@ -46,7 +46,7 @@ body {
 }
 
 
-.word.selected {
+.word.selected:not(.locked) {
   background-color: #d6e9ff;
   box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
@@ -54,7 +54,7 @@ body {
 
 .word.locked {
   cursor: default;
-  animation: lockIn 0.4s ease;
+  pointer-events: none; 
 }
 
 /* Difficulty colors */
