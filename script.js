@@ -176,9 +176,10 @@ function endGame(win) {
   if (!win) revealAll();
   showExplanations();
 
-  // 🔥 PAYLAŞ BUTONU HER ZAMAN AÇILIR
-  shareResultsBtn.disabled = false;
-  shareResultsBtn.style.display = "inline-flex";
+  if (shareResultsBtn) {
+    shareResultsBtn.style.display = "inline-flex";
+    shareResultsBtn.disabled = false;
+  }
 }
 
 
@@ -232,7 +233,6 @@ function getShareText() {
 
   return `Inklings 🧠📚\n\n${squares}\n\nGünlük edebiyat bulmacası`;
 }
-const shareResultsBtn = document.getElementById("share-results");
 
 function getShareText(win) {
   const squares = solvedGroups.map(g =>
@@ -256,4 +256,7 @@ shareResultsBtn.onclick = () => {
 
   window.open(twitterUrl, "_blank");
 };
+document.addEventListener("DOMContentLoaded", () => {
+  window.shareResultsBtn = document.getElementById("share-results");
+});
 
