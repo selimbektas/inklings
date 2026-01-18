@@ -6,6 +6,8 @@ let lockedWords = {};
 let solvedGroups = [];
 let mistakes = 0;
 let gameOver = false;
+let gameWon = false;
+
 
 const grid = document.getElementById("grid");
 const message = document.getElementById("message");
@@ -174,7 +176,12 @@ function endGame(win) {
   if (!win) revealAll();
   showExplanations();
 
-  shareResultsBtn.disabled = false;
+  // 🔑 KRİTİK SATIRLAR
+  const shareBtn = document.getElementById("share-results");
+  if (shareBtn) {
+    shareBtn.disabled = false;
+    shareBtn.style.display = "inline-flex";
+  }
 }
 
 
