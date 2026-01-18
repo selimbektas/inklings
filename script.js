@@ -166,8 +166,8 @@ function shakeSelected() {
 
 // Oyun bitişi
 function endGame(win) {
-  gameWon = win;
   gameOver = true;
+  gameWon = win;
 
   message.textContent = win
     ? "Tebrikler! Tüm grupları tamamladın!"
@@ -176,9 +176,11 @@ function endGame(win) {
   if (!win) revealAll();
   showExplanations();
 
+  // 🔥 PAYLAŞ BUTONU HER ZAMAN AÇILIR
   shareResultsBtn.disabled = false;
   shareResultsBtn.style.display = "inline-flex";
 }
+
 
 
 
