@@ -1,70 +1,70 @@
 {
   "words": [
+    "Kafka",
+    "Tanpınar",
+    "Borges",
+    "Pamuk",
+
+    "Gregor Samsa",
+    "Huzur",
     "Tutunamayanlar",
-    "Saatleri Ayarlama Enstitüsü",
-    "Aylak Adam",
-    "Masumiyet Müzesi",
+    "Ulysses",
 
-    "Yalnızlık",
-    "Zaman",
-    "Bellek",
-    "Nesneler",
+    "Prag",
+    "Buenos Aires",
+    "İstanbul",
+    "Dublin",
 
-    "İroni",
-    "İç Monolog",
-    "Bunalım",
-    "Modern Birey",
-
-    "Aşk",
-    "Kimlik",
-    "Toplum",
-    "Hatırlama"
+    "Leopold Bloom",
+    "Mümtaz",
+    "Selim Işık",
+    "Kemal Basmacı"
   ],
 
   "groups": [
     {
-      "name": "Orhan Pamuk",
+      "name": "Yazarlar",
       "difficulty": "yellow",
       "words": [
-        "Masumiyet Müzesi",
-        "Nesneler",
-        "Aşk",
-        "Kimlik"
+        "Kafka",
+        "Tanpınar",
+        "Borges",
+        "Pamuk"
       ],
-      "explanation": "Aşk ve kimlik arayışını gündelik nesneler ve hatıralar üzerinden kuran modern anlatılar."
+      "explanation": "Modern edebiyatın farklı coğrafyalardan gelen, anlatı anlayışını dönüştüren yazarları."
     },
     {
-      "name": "Yusuf Atılgan",
+      "name": "Romanlar",
       "difficulty": "green",
       "words": [
-        "Aylak Adam",
-        "Yalnızlık",
-        "İç Monolog",
-        "Bunalım"
+        "Huzur",
+        "Tutunamayanlar",
+        "Ulysses",
+        "Gregor Samsa"
       ],
-      "explanation": "Toplumdan kopuk bireyin iç dünyasını, yalnızlık ve varoluşsal bunalım üzerinden aktaran anlatı evreni."
+      "explanation": "Modern edebiyatın kırılma noktası kabul edilen romanlar ve anlatı evrenleri."
     },
     {
-      "name": "Ahmet Hamdi Tanpınar",
+      "name": "Edebiyatla Özdeşleşen Şehirler",
       "difficulty": "blue",
       "words": [
-        "Saatleri Ayarlama Enstitüsü",
-        "Zaman",
-        "Bellek",
-        "Hatırlama"
+        "Prag",
+        "Buenos Aires",
+        "İstanbul",
+        "Dublin"
       ],
-      "explanation": "Zaman ve bellek kavramları üzerinden modernleşmenin bireysel ve toplumsal etkilerini sorgulayan anlatılar."
+      "explanation": "Yazarları ve metinleriyle edebi kimlik kazanmış şehirler."
     },
     {
-      "name": "Oğuz Atay",
+      "name": "Roman Karakterleri",
       "difficulty": "purple",
       "words": [
-        "Tutunamayanlar",
-        "İroni",
-        "Modern Birey",
-        "Toplum"
+        "Leopold Bloom",
+        "Mümtaz",
+        "Selim Işık",
+        "Kemal Basmacı"
       ],
-      "explanation": "Modern bireyin toplumla kurduğu sorunlu ilişkiyi ironi ve anlatı kırılmaları üzerinden ele alan metinler."
+      "explanation": "Modern romanın iç dünyası güçlü, hafızalarda yer etmiş karakterleri."
     }
   ]
 }
