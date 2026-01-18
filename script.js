@@ -81,15 +81,15 @@ document.getElementById("submit").onclick = () => {
   if (match) {
     match.words.forEach(w => lockedWords[w] = match.difficulty);
     solvedGroups.push(match);
-    message.textContent = `Correct — ${match.name}`;
+    message.textContent = `Doğru! — ${match.name}`;
     reorderGrid();
   } else {
     const almost = puzzle.groups.some(g =>
       g.words.filter(w => selected.includes(w)).length === 3
     );
     message.textContent = almost
-      ? "Almost — one word misaligned."
-      : "Incorrect grouping.";
+      ? "Neredeyse oldu! Bir tane kaldı!"
+      : "Yanlış eşleştirme.";
     if (!almost) mistakes++;
     shakeSelected();
   }
@@ -100,7 +100,7 @@ document.getElementById("submit").onclick = () => {
   // ⬇️ SONRA seçimi temizle
   selected = [];
 
-  mistakesDiv.textContent = `Mistakes: ${mistakes} / 4`;
+  mistakesDiv.textContent = `Hata: ${mistakes} / 4`;
 
   if (solvedGroups.length === 4) endGame(true);
   if (mistakes >= 4) endGame(false);
@@ -129,8 +129,8 @@ function shakeSelected() {
 function endGame(win) {
   gameOver = true;
   message.textContent = win
-    ? "All connections found."
-    : "Puzzle over. Connections revealed.";
+    ? "Tebrikler! Tüm grupları tamamladın!"
+    : "Yarın yine uğramayı unutma!";
 
   if (!win) revealAll();
   showExplanations();
