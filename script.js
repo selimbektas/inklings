@@ -10,7 +10,6 @@ let gameOver = false;
 const grid = document.getElementById("grid");
 const message = document.getElementById("message");
 const mistakesDiv = document.getElementById("mistakes");
-const subtitle = document.getElementById("subtitle");
 const shareBtn = document.getElementById("share");
 
 const basePath = window.location.pathname.replace(/\/$/, "");
