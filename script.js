@@ -164,11 +164,20 @@ function shakeSelected() {
 
 // Oyun bitişi
 function endGame(win) {
+  gameWon = win;
   gameOver = true;
-  message.textContent = win ? "Tebrikler! Tüm grupları tamamladın!" : "Bir dahaki sefere!";
+
+  message.textContent = win
+    ? "Tebrikler! Tüm grupları tamamladın!"
+    : "Bir dahaki sefere!";
+
   if (!win) revealAll();
   showExplanations();
+
+  shareResultsBtn.disabled = false;
 }
+
+
 
 // Tüm kelimeleri göster
 function revealAll() {
@@ -209,3 +218,37 @@ instaBtn.onclick = () => {
   navigator.clipboard.writeText(getShareText());
   message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
 };
+const shareResultsBtn = document.getElementById("share-results");
+
+function getShareText() {
+  const squares = solvedGroups.map(g =>
+    g.words.map(() => colorSquare(g.difficulty)).join("")
+  ).join("\n");
+
+  return `Inklings 🧠📚\n\n${squares}\n\nGünlük edebiyat bulmacası`;
+}
+const shareResultsBtn = document.getElementById("share-results");
+
+function getShareText(win) {
+  const squares = solvedGroups.map(g =>
+    g.words.map(() => colorSquare(g.difficulty)).join("")
+  ).join("\n");
+
+  const attemptsText = win
+    ? `${mistakes + 1}/4 denemede çözüldü`
+    : `çözülemedi (4/4)`;
+
+  return `Inklings 🧠📚\n${attemptsText}\n\n${squares}`;
+}
+
+
+shareResultsBtn.onclick = () => {
+  const text = encodeURIComponent(getShareText(gameWon));
+  const url = encodeURIComponent("https://selimbektas.github.io/inklings/");
+
+  const twitterUrl =
+    `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+
+  window.open(twitterUrl, "_blank");
+};
+
