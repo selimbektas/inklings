@@ -130,17 +130,6 @@ document.getElementById("submit").onclick = () => {
   renderGrid();
 };
 
-  // ⬇️ ÖNCE çiz
-  renderGrid();
-
-  // ⬇️ SONRA seçimi temizle
-  selected = [];
-
-  mistakesDiv.textContent = `Hata: ${mistakes} / 4`;
-
-  if (solvedGroups.length === 4) endGame(true);
-  if (mistakes >= 4) endGame(false);
-};
 
 
 document.getElementById("reset").onclick = () => {
