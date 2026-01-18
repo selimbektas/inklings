@@ -155,7 +155,7 @@ function endGame(win) {
   gameOver = true;
   message.textContent = win
     ? "Tebrikler! Tüm grupları tamamladın!"
-    : "Yarın yine uğramayı unutma!";
+    : "Bir dahaki sefere!";
 
   if (!win) revealAll();
   showExplanations();
