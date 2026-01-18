@@ -18,9 +18,9 @@ body {
 
 .word {
   padding: 16px 14px;
-  border-radius: 14px; /* 👈 köşeler */
-  border: 1px solid #333;
+  border-radius: 14px;
   background: white;
+
   cursor: pointer;
   user-select: none;
 
@@ -32,11 +32,14 @@ body {
   justify-content: center;
   text-align: center;
 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+
   transition:
     transform 0.18s cubic-bezier(.2,.8,.2,1),
     background-color 0.18s ease,
     box-shadow 0.18s ease;
 }
+
 
 
 .word:hover:not(.locked) {
@@ -47,7 +50,7 @@ body {
 
 
 .word.selected:not(.locked) {
-  background-color: #d6e9ff;
+  background-color: #e3f0ff;
   box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
 
@@ -148,24 +151,30 @@ textarea {
 
 button {
   padding: 12px 18px;
-  border-radius: 999px; /* tamamen yuvarlak */
-  border: 1px solid #333;
+  border-radius: 999px;
+  border: none;
   background: white;
-  font-family: Georgia, serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  cursor: pointer;
 
+  font-family: -apple-system, BlinkMacSystemFont,
+               "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 
   transition:
     background-color 0.2s ease,
     transform 0.15s ease,
     box-shadow 0.15s ease;
 }
+
 
 /* Hover */
 button:hover {
@@ -196,4 +205,13 @@ button:disabled {
   font-size: 0.95rem;
   color: #555;
   margin-bottom: 20px;
+}
+.word.locked {
+  pointer-events: none;
+  animation: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.word.locked:hover {
+  background-color: inherit;
 }
