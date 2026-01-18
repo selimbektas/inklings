@@ -7,12 +7,12 @@ let solvedGroups = [];
 let mistakes = 0;
 let gameOver = false;
 let gameWon = false;
+let shareResultsBtn;
 
 
 const grid = document.getElementById("grid");
 const message = document.getElementById("message");
 const mistakesDiv = document.getElementById("mistakes");
-const shareBtn = document.getElementById("share");
 
 // Pastel renk paleti
 const pastelColors = ["#f9df6d", "#a0c35a", "#8bbcd9", "#b497d6", "#ffb3ba", "#ffdfba", "#bae1ff", "#c3f7d9"];
@@ -49,6 +49,17 @@ function shuffle(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+
+function colorSquare(difficulty) {
+  switch (difficulty) {
+    case 1: return "🟨";
+    case 2: return "🟩";
+    case 3: return "🟦";
+    case 4: return "🟪";
+    default: return "⬜";
+  }
+}
+
 
 // Grid render
 function renderGrid() {
@@ -206,33 +217,7 @@ function showExplanations() {
 }
 
 // Sosyal paylaşım
-const twitterBtn = document.getElementById("share-twitter");
-const instaBtn = document.getElementById("share-instagram");
-const socialShareDiv = document.getElementById("social-share");
-socialShareDiv.style.display = "flex";
 
-function getShareText() {
-  const squares = solvedGroups.map(g => g.words.map(() => "🟩").join("")).join("\n");
-  return `Edebi Connections\n\n${squares}`;
-}
-
-twitterBtn.onclick = () => {
-  const text = encodeURIComponent(getShareText());
-  window.open(`https://twitter.com/intent/tweet?text=${text}`, "_blank");
-};
-
-instaBtn.onclick = () => {
-  navigator.clipboard.writeText(getShareText());
-  message.textContent = "Sonuçlar panoya kopyalandı. Instagram’a yapıştırabilirsin.";
-};
-
-function getShareText() {
-  const squares = solvedGroups.map(g =>
-    g.words.map(() => colorSquare(g.difficulty)).join("")
-  ).join("\n");
-
-  return `Inklings 🧠📚\n\n${squares}\n\nGünlük edebiyat bulmacası`;
-}
 
 function getShareText(win) {
   const squares = solvedGroups.map(g =>
@@ -243,20 +228,20 @@ function getShareText(win) {
     ? `${mistakes + 1}/4 denemede çözüldü`
     : `çözülemedi (4/4)`;
 
-  return `Inklings 🧠📚\n${attemptsText}\n\n${squares}`;
+  return `Inklings 🧠📚
+${attemptsText}
+
+${squares}
+
+https://selimbektas.github.io/inklings/`;
 }
 
-
-shareResultsBtn.onclick = () => {
-  const text = encodeURIComponent(getShareText(gameWon));
-  const url = encodeURIComponent("https://selimbektas.github.io/inklings/");
-
-  const twitterUrl =
-    `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-
-  window.open(twitterUrl, "_blank");
-};
 document.addEventListener("DOMContentLoaded", () => {
-  window.shareResultsBtn = document.getElementById("share-results");
-});
+  shareResultsBtn = document.getElementById("share-results");
 
+  shareResultsBtn.onclick = () => {
+    const text = encodeURIComponent(getShareText(gameWon));
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;
+    window.open(twitterUrl, "_blank");
+  };
+});
