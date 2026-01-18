@@ -36,41 +36,19 @@ body {
 
 
 .word {
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;        /* 🔹 DAHA KÜÇÜK YAZI */
-
-  height: 56px;              /* 🔹 DAHA KÜÇÜK KART */
+  height: 56px;
   padding: 6px 8px;
 
   background: white;
   border-radius: 12px;
 
   display: flex;
-  align-items: center;       /* dikey ortalama */
-  justify-content: center;   /* yatay ortalama */
-
-  text-align: center;
-  line-height: 1.2;
+  align-items: center;        /* ✅ DİKEY ORTA */
+  justify-content: center;    /* yatay orta */
 
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
   cursor: pointer;
-  user-select: none;
-
-  transition:
-    transform 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
-
-  /* 🔒 2 satır sınırı */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
-
-
-
 
 /* Hover */
 .word:hover:not(.locked) {
@@ -202,3 +180,14 @@ button:disabled {
   height: auto;
 }
 
+.word span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
