@@ -7,7 +7,7 @@ let solvedGroups = [];
 let mistakes = 0;
 let gameOver = false;
 let gameWon = false;
-let shareResultsBtn;
+let shareResultsBtn = document.getElementById("share-results");
 
 
 const grid = document.getElementById("grid");
@@ -196,15 +196,10 @@ function endGame(win) {
   if (!win) revealAll();
   showExplanations();
 
-  if (shareResultsBtn) {
-    shareResultsBtn.style.display = "inline-flex";
-    shareResultsBtn.disabled = false;
-  }
+  shareResultsBtn.style.display = "inline-flex";
+  shareResultsBtn.disabled = false;
 }
-
-
-
-
+  
 
 // Tüm kelimeleri göster
 function revealAll() {
@@ -245,12 +240,9 @@ ${squares}
 https://selimbektas.github.io/inklings/`;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  shareResultsBtn = document.getElementById("share-results");
+shareResultsBtn.onclick = () => {
+  const text = encodeURIComponent(getShareText(gameWon));
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;
+  window.open(twitterUrl, "_blank");
+};
 
-  shareResultsBtn.onclick = () => {
-    const text = encodeURIComponent(getShareText(gameWon));
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;
-    window.open(twitterUrl, "_blank");
-  };
-});
