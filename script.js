@@ -160,7 +160,7 @@ document.getElementById("shuffle").onclick = () => {
     if (el) el.classList.add("locked-new");
   });
 
-  // ✅ BURAYA
+  if (solvedGroups.length === 4) endGame(true);
   if (solvedGroups.length === 4) {
     endGame(true);
   }
