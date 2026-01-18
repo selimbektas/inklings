@@ -11,6 +11,12 @@ const grid = document.getElementById("grid");
 const message = document.getElementById("message");
 const mistakesDiv = document.getElementById("mistakes");
 const shareBtn = document.getElementById("share");
+const pastelColors = ["#f9df6d", "#a0c35a", "#8bbcd9", "#b497d6", "#ffb3ba", "#ffdfba", "#bae1ff", "#c3f7d9"];
+
+puzzle.groups.forEach((g, idx) => {
+  g.color = pastelColors[idx % pastelColors.length];
+});
+
 
 const basePath = window.location.pathname.replace(/\/$/, "");
 
