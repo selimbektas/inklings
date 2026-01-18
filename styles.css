@@ -163,3 +163,10 @@ button:disabled {
   transform: none;
   box-shadow: none;
 }
+#social-share {
+  display: flex;
+  justify-content: center; /* yatayda ortala */
+  gap: 10px;               /* butonlar arası boşluk */
+  margin-top: 15px;
+}
+
