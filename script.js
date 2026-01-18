@@ -239,3 +239,22 @@ document.getElementById("shuffle").onclick = () => {
   selected = [];
   renderGrid();
 };
+document.getElementById("shuffle").onclick = () => {
+  if (gameOver) return;
+
+  grid.classList.add("shuffling");
+
+  setTimeout(() => {
+    const unlockedWords = puzzle.words.filter(w => !lockedWords[w]);
+    shuffle(unlockedWords);
+
+    puzzle.words = [
+      ...solvedGroups.flatMap(g => g.words),
+      ...unlockedWords
+    ];
+
+    selected = [];
+    renderGrid();
+    grid.classList.remove("shuffling");
+  }, 200);
+};
