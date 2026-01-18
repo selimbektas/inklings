@@ -124,10 +124,15 @@ document.getElementById("shuffle").onclick = () => {
 
   grid.classList.add("shuffling");
 
+  // Mevcut konumları kaydet
+  const positions = Array.from(grid.children).map(el => el.getBoundingClientRect());
+
   setTimeout(() => {
+    // Çözülmemiş kelimeleri al ve karıştır
     const unlockedWords = puzzle.words.filter(w => !lockedWords[w]);
     shuffle(unlockedWords);
 
+    // Çözülmüş kelimeler üstte sabit
     puzzle.words = [
       ...solvedGroups.flatMap(g => g.words),
       ...unlockedWords
@@ -135,9 +140,29 @@ document.getElementById("shuffle").onclick = () => {
 
     selected = [];
     renderGrid();
-    grid.classList.remove("shuffling");
-  }, 200);
+
+    // Karıştırılmış kelimelere "kayma" efekti
+    const newPositions = Array.from(grid.children).map(el => el.getBoundingClientRect());
+
+    grid.querySelectorAll(".word").forEach((el, i) => {
+      const dx = positions[i].left - newPositions[i].left;
+      const dy = positions[i].top - newPositions[i].top;
+
+      el.style.transform = `translate(${dx}px, ${dy}px)`;
+      requestAnimationFrame(() => {
+        el.style.transition = "transform 0.3s ease";
+        el.style.transform = "";
+      });
+    });
+
+    setTimeout(() => {
+      grid.classList.remove("shuffling");
+      grid.querySelectorAll(".word").forEach(el => el.style.transition = "");
+    }, 350);
+
+  }, 50);
 };
+
 
 // Grid sıralama (çözülmüşleri üstte tut)
 function reorderGrid() {
