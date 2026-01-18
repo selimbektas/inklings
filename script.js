@@ -55,13 +55,24 @@ function renderGrid() {
     d.className = "word";
     d.textContent = word;
 
-    if (lockedWords[word]) d.classList.add("locked", lockedWords[word]);
+    // Eğer kelime çözülmüşse, grup rengini uygula
+    if (lockedWords[word]) {
+      d.classList.add("locked");
+
+      const group = puzzle.groups.find(g => g.words.includes(word));
+      if (group && group.color) {
+        d.style.backgroundColor = group.color;
+      }
+    }
+
+    // Seçili kelime
     if (selected.includes(word)) d.classList.add("selected");
 
     d.onclick = () => toggleWord(word);
     grid.appendChild(d);
   });
 }
+
 
 // Kelime seçme/çıkarma
 function toggleWord(word) {
