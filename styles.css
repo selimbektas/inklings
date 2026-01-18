@@ -169,4 +169,16 @@ button:disabled {
   gap: 10px;               /* butonlar arası boşluk */
   margin-top: 15px;
 }
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;          /* logo – yazı arası */
+  margin-bottom: 6px;
+}
+
+.logo-icon {
+  width: 28px;       /* ikon boyutu */
+  height: auto;
+}
 
