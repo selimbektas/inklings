@@ -13,7 +13,6 @@ body {
   text-align: center;
 }
 
-/* Başlıklar */
 #puzzle-title {
   font-size: 1.9rem;
   font-weight: 600;
@@ -69,43 +68,12 @@ body {
 
 /* Kilitli kelime */
 .word.locked {
-  background-color: #b2f2bb;
   cursor: default;
   pointer-events: none;
 }
 
-/* Zorluk renkleri (isteğe bağlı) */
-.yellow { background: #f9df6d; }
-.green  { background: #a0c35a; }
-.blue   { background: #8bbcd9; }
-.purple { background: #b497d6; }
-
-/* ===============================
-   ANIMASYONLAR
-=============================== */
-/* Yanlış seçim shake */
-@keyframes shakeHard {
-  0% { transform: translateX(0); }
-  15% { transform: translateX(-6px); }
-  30% { transform: translateX(6px); }
-  45% { transform: translateX(-5px); }
-  60% { transform: translateX(5px); }
-  75% { transform: translateX(-3px); }
-  100% { transform: translateX(0); }
-}
-
-.word.shake {
-  animation: shakeHard 0.35s;
-}
-
-/* Doğru grup kilitlenme animasyonu */
-@keyframes lockPop {
-  0%   { transform: scale(1.05); opacity: 1; }
-  60%  { transform: scale(0.96); }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.word.locked {
+/* Yeni kilitlenen kelime animasyonu */
+.word.locked-new {
   animation: lockPop 0.25s ease forwards;
 }
 
@@ -134,9 +102,39 @@ body {
   75%      { transform: translateY(-3px); }
 }
 
-/* ===============================
-   BUTONLAR
-=============================== */
+/* Yanlış seçim shake */
+@keyframes shakeHard {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  30% { transform: translateX(6px); }
+  45% { transform: translateX(-5px); }
+  60% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+.word.shake {
+  animation: shakeHard 0.35s;
+}
+
+/* Açıklamalar */
+#explanations {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.explanation {
+  padding: 15px;
+  margin-bottom: 10px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Buttons */
 button {
   padding: 12px 18px;
   border-radius: 999px;
@@ -164,27 +162,4 @@ button:disabled {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
-}
-
-/* ===============================
-   AÇIKLAMALAR
-=============================== */
-#explanations {
-  margin-top: 30px;
-  text-align: left;
-}
-
-.explanation {
-  padding: 15px;
-  margin-bottom: 10px;
-  animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-/* Sadece yeni kilitlenen kelimeler animasyonlu */
-.locked-new {
-  animation: lockPop 0.25s ease forwards;
 }
